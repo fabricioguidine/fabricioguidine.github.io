@@ -1,0 +1,59 @@
+{
+  "version": "0.2",
+  "language": "en,pt,pt_BR",
+  "dictionaries": [
+    "en_US",
+    "pt_BR",
+    "softwareTerms",
+    "html",
+    "filetypes",
+    "companies",
+    "misc"
+  ],
+  "ignorePaths": [
+    "node_modules/**",
+    "_site/**",
+    ".jekyll-cache/**",
+    "vendor/**",
+    ".github/**",
+    "Gemfile",
+    "Gemfile.lock",
+    "LICENSE",
+    "*.svg",
+    "*.png",
+    "*.jpg",
+    "*.ico"
+  ],
+  "words": [
+    "Guidine",
+    "Fabrício",
+    "fabricioguidine",
+    "SDET",
+    "Appium",
+    "DevTools",
+    "Juiz",
+    "Fora",
+    "Selenium",
+    "Cypress",
+    "Jekyll",
+    "minima",
+    "lychee",
+    "htmlhint",
+    "pa11y",
+    "cspell",
+    "lhci",
+    "lighthouseci",
+    "jekyll",
+    "rubygems",
+    "bundler",
+    "Sucupira",
+    "Brasil"
+  ],
+  "allowCompoundWords": true,
+  "ignoreRegExpList": [
+    "Urls",
+    "Email",
+    "HexValues",
+    "/\\bhttps?:\\/\\/[^\\s)]+/g"
+  ]
+}
