@@ -490,6 +490,59 @@
     </div>
   </footer>
 
+  <button id="a11y-toggle" class="a11y-toggle" type="button"
+          aria-haspopup="dialog" aria-expanded="false" aria-controls="a11y-panel">
+    <span class="sr-only" data-lang-en>Accessibility options</span>
+    <span class="sr-only" data-lang-pt>Opções de acessibilidade</span>
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+      <circle cx="12" cy="4" r="2" fill="currentColor"/>
+      <path fill="currentColor" d="M21 8H3v2h6v3l-2 9h2l1-6h2l1 6h2l-2-9v-3h6V8z"/>
+    </svg>
+  </button>
+
+  <div id="a11y-panel" class="a11y-panel" role="dialog"
+       aria-labelledby="a11y-panel-title" hidden>
+    <h2 id="a11y-panel-title" class="a11y-panel-title">
+      <span data-lang-en>Accessibility</span>
+      <span data-lang-pt>Acessibilidade</span>
+    </h2>
+    <ul class="a11y-options">
+      <li>
+        <span class="a11y-label" data-lang-en>Text size</span>
+        <span class="a11y-label" data-lang-pt>Tamanho do texto</span>
+        <button type="button" class="a11y-btn" data-a11y="textSize">
+          <span class="a11y-state"></span>
+        </button>
+      </li>
+      <li>
+        <span class="a11y-label" data-lang-en>High contrast</span>
+        <span class="a11y-label" data-lang-pt>Alto contraste</span>
+        <button type="button" class="a11y-btn" data-a11y="contrast" aria-pressed="false">
+          <span class="a11y-state"></span>
+        </button>
+      </li>
+      <li>
+        <span class="a11y-label" data-lang-en>Reduce motion</span>
+        <span class="a11y-label" data-lang-pt>Reduzir animações</span>
+        <button type="button" class="a11y-btn" data-a11y="motion" aria-pressed="false">
+          <span class="a11y-state"></span>
+        </button>
+      </li>
+      <li>
+        <span class="a11y-label" data-lang-en>Underline links</span>
+        <span class="a11y-label" data-lang-pt>Sublinhar links</span>
+        <button type="button" class="a11y-btn" data-a11y="underline" aria-pressed="false">
+          <span class="a11y-state"></span>
+        </button>
+      </li>
+    </ul>
+    <button type="button" class="a11y-reset" data-a11y="reset">
+      <span data-lang-en>Reset</span>
+      <span data-lang-pt>Restaurar</span>
+    </button>
+  </div>
+
   <script src="assets/js/lang.js" defer></script>
+  <script src="assets/js/a11y.js" defer></script>
 </body>
 </html>
