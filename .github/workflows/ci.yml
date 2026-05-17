@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main, master]
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+
+  html-lint:
+    name: HTML lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install Node deps
+        run: npm install --no-audit --no-fund
+      - name: HTMLHint
+        run: npx htmlhint "**/*.html" --ignore "node_modules/**,vendor/**"
+      - name: html-validate
+        run: npx html-validate "index.html"
+
+  spell-check:
+    name: Spell check (EN + PT-BR)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Run cspell
+        run: npx --yes cspell "**/*.{md,html,yml}" --no-progress
+
+  link-check:
+    name: Link check (lychee)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lychee link checker
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --verbose --no-progress --exclude-loopback './index.html' './**/*.md'
+          fail: true
+
+  accessibility:
+    name: Accessibility (pa11y-ci)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install Node deps
+        run: npm install --no-audit --no-fund
+      - name: Serve site
+        run: npx --yes http-server . -p 4000 -s &
+      - name: Wait for server
+        run: npx --yes wait-on http://localhost:4000 --timeout 30000
+      - name: Run pa11y-ci
+        run: npx pa11y-ci --config .pa11yci.json
+
+  lighthouse:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install Node deps
+        run: npm install --no-audit --no-fund
+      - name: Run Lighthouse CI
+        run: npx lhci autorun --config=./lighthouserc.json
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
