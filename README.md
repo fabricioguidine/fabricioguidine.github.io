@@ -1,52 +1,68 @@
-# 👋 Hi, I'm Fabrício Guidine
+# fabricioguidine.github.io
 
 [![CI](https://github.com/fabricioguidine/fabricioguidine.github.io/actions/workflows/ci.yml/badge.svg)](https://github.com/fabricioguidine/fabricioguidine.github.io/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![pages-build-deployment](https://github.com/fabricioguidine/fabricioguidine.github.io/actions/workflows/pages/pages-build-deployment/badge.svg)](https://fabricioguidine.github.io)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**Software Development Engineer in Test (SDET)**
-🔧 QA Automation | Python | Selenium | Appium | Cypress
+Personal website for **Fabrício de Sousa Guidine** — Sr. QA Engineer / SDET.
 
-- 💼 [LinkedIn](https://linkedin.com/in/fabricioguidine)
-- 🧪 [GitHub Projects](https://github.com/fabricioguidine?tab=repositories)
+Live: <https://fabricioguidine.github.io>
 
-> "Quality is never an accident; it is always the result of intelligent effort."
+## Stack
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=fabricioguidine&show_icons=true&theme=default)
+- Static HTML + CSS (no build step)
+- `.nojekyll` flag — GitHub Pages serves files as-is
+- Bilingual EN / PT-BR via a tiny vanilla-JS toggle (`assets/js/lang.js`)
+- Dark mode via `prefers-color-scheme`, reduced-motion respected, WCAG-AA contrast
+- Skip-link + semantic landmarks for keyboard / screen-reader navigation
+- Schema.org `Person` JSON-LD for search engines
 
-## Local development
+## Layout
+
+```
+.
+├── index.html          # single-page site, all sections
+├── assets/
+│   ├── css/styles.css  # design tokens + components
+│   ├── js/lang.js      # EN/PT toggle, year stamp
+│   └── cv/             # downloadable CV PDF
+├── .github/workflows/  # CI: lint, a11y, spellcheck, lighthouse
+├── .nojekyll           # skip Jekyll build
+└── README.md
+```
+
+## Local preview
 
 ```bash
-bundle install
-bundle exec jekyll serve
-# open http://localhost:4000
+python -m http.server 8080
+# open http://localhost:8080
 ```
 
 ## Tooling
 
-This site ships with best-in-class CI checks that run on every PR:
+Every PR runs the following checks on GitHub Actions:
 
 | Check | Tool |
 | --- | --- |
-| Jekyll build | `bundle exec jekyll build --strict_front_matter` |
 | HTML lint (source) | [HTMLHint](https://htmlhint.com/) |
-| HTML validation (built) | [html-validate](https://html-validate.org/) |
+| HTML validation | [html-validate](https://html-validate.org/) |
 | Spell check (EN + PT-BR) | [cspell](https://cspell.org/) |
 | Broken links | [lychee](https://github.com/lycheeverse/lychee-action) |
 | Accessibility (WCAG 2 AA) | [pa11y-ci](https://github.com/pa11y/pa11y-ci) |
 | Performance / SEO / a11y scores | [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci) |
-| Dependency updates | Dependabot (bundler, npm, github-actions) |
+| Dependency updates | Dependabot (npm + github-actions) |
 
-Run any of the linters locally:
+Run any linter locally:
 
 ```bash
 npm install
-npm run lint:html
-npm run spell
-npm run a11y      # requires the site running on :4000
-npm run lhci      # requires a built _site/
+npm run lint:html        # HTMLHint
+npm run validate:html    # html-validate
+npm run spell            # cspell
+npm run a11y             # needs the site running on :4000
+npm run lhci             # Lighthouse CI against repo root
 ```
 
 ## License
 
-[MIT](LICENSE) (c) 2026 fabricioguidine
+[MIT](LICENSE) © 2026 Fabrício de Sousa Guidine

@@ -1,14 +1,3 @@
-# Jekyll build artifacts
-_site/
-.jekyll-cache/
-.jekyll-metadata
-.sass-cache/
-
-# Bundler / Ruby
-vendor/
-.bundle/
-Gemfile.lock
-
 # Node
 node_modules/
 npm-debug.log*

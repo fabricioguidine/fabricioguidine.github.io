@@ -2,19 +2,22 @@
   "name": "fabricioguidine-github-io-tooling",
   "version": "1.0.0",
   "private": true,
-  "description": "Dev-time tooling (linters, a11y, spellcheck) for fabricioguidine.github.io Jekyll site",
+  "description": "Dev-time tooling (linters, a11y, spellcheck, lighthouse) for the static fabricioguidine.github.io site",
   "scripts": {
-    "lint:html": "htmlhint \"**/*.html\" --ignore \"node_modules/**,_site/**,vendor/**\"",
-    "lint:html:built": "html-validate \"_site/**/*.html\"",
+    "lint:html": "htmlhint \"**/*.html\" --ignore \"node_modules/**,vendor/**\"",
+    "validate:html": "html-validate \"index.html\"",
     "spell": "cspell \"**/*.{md,html,yml}\" --no-progress",
     "a11y": "pa11y-ci --config .pa11yci.json",
-    "lhci": "lhci autorun"
+    "lhci": "lhci autorun --config=./lighthouserc.json",
+    "serve": "http-server . -p 4000 -s"
   },
   "devDependencies": {
     "@lhci/cli": "^0.13.0",
     "cspell": "^8.14.0",
     "html-validate": "^8.22.0",
     "htmlhint": "^1.1.4",
-    "pa11y-ci": "^3.1.0"
+    "http-server": "^14.1.1",
+    "pa11y-ci": "^3.1.0",
+    "wait-on": "^7.2.0"
   }
 }
