@@ -219,6 +219,10 @@ p  { margin: 0 0 1rem; }
   padding: .2rem .55rem; border-radius: 999px;
   font-size: .8rem; font-weight: 500;
 }
+.tag-list a { color: inherit; text-decoration: none; }
+.tag-list li:has(a) { transition: filter .15s; }
+.tag-list li:has(a):hover { filter: brightness(1.15); }
+.tag-list a:hover { text-decoration: underline; }
 
 /* ---------- projects ---------- */
 .projects-grid {
