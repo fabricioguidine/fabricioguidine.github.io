@@ -1,0 +1,6 @@
+# Ignore localhost and dev URLs
+http://localhost*
+http://127.0.0.1*
+
+# Ignore example placeholders
+https://example.com/*
