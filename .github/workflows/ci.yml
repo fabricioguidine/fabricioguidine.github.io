@@ -36,8 +36,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "npm"
+      - name: Install Node deps
+        run: npm install --no-audit --no-fund
       - name: Run cspell
-        run: npx --yes cspell "**/*.{md,html,yml}" --no-progress
+        run: npm run spell
 
   link-check:
     name: Link check (lychee)
