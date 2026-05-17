@@ -128,6 +128,29 @@ p  { margin: 0 0 1rem; }
 
 /* ---------- hero ---------- */
 .hero { padding: clamp(3rem, 8vw, 5rem) 0 clamp(2rem, 5vw, 3rem); }
+.hero-inner {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+.hero-text { min-width: 0; }
+.hero-avatar {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--card-bg);
+  box-shadow: var(--shadow), 0 0 0 1px var(--border);
+  justify-self: center;
+}
+@media (min-width: 720px) {
+  .hero-inner { grid-template-columns: 1fr auto; }
+  .hero-avatar { justify-self: end; }
+}
+@media (max-width: 720px) {
+  .hero-avatar { width: 160px; height: 160px; }
+}
 .eyebrow {
   display: inline-block;
   font-size: .8rem; letter-spacing: .12em; text-transform: uppercase;
