@@ -1,6 +1,7 @@
 {
   "version": "0.2",
   "language": "en,pt,pt_BR",
+  "import": ["@cspell/dict-pt-br/cspell-ext.json"],
   "dictionaries": [
     "en_US",
     "pt_BR",
@@ -25,6 +26,9 @@
     "Guidine",
     "Fabrício",
     "fabricioguidine",
+    "linkedin",
+    "cnpq",
+    "nojekyll",
     "Sousa",
     "SDET",
     "Juiz",

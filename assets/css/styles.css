@@ -233,6 +233,7 @@ p  { margin: 0 0 1rem; }
 .plain-list li { padding: .75rem 0; border-bottom: 1px solid var(--border); }
 .plain-list li:last-child { border-bottom: none; }
 .plain-list strong { color: var(--fg); }
+.subhead { margin-top: 2rem; }
 
 /* ---------- contact ---------- */
 .contact-list {

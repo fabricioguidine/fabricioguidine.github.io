@@ -2,5 +2,12 @@
 http://localhost*
 http://127.0.0.1*
 
+# Lattes (cnpq.br) — TLS handshake fails from GitHub runners (older cipher suite)
+https://lattes.cnpq.br/*
+
+# LinkedIn returns 999/403 to non-browser user-agents
+https://www.linkedin.com/*
+https://linkedin.com/*
+
 # Ignore example placeholders
 https://example.com/*
