@@ -36,6 +36,8 @@ Top-right **PT** button swaps the entire page between English and Portuguese (pr
 - Schema.org `Person` JSON-LD for search engines
 - Print-friendly stylesheet
 
+The published site is plain static files. The Node toolchain in this repo is **dev-time only** (linting, accessibility, Lighthouse, and Playwright e2e) — it is never deployed. See [ARCHITECTURE.md](ARCHITECTURE.md) for the full layout.
+
 ## Layout
 
 ```
@@ -44,49 +46,88 @@ Top-right **PT** button swaps the entire page between English and Portuguese (pr
 ├── assets/
 │   ├── css/styles.css         # design tokens + components
 │   ├── js/lang.js             # EN/PT toggle, year stamp
-│   ├── img/avatar.png         # hero avatar
+│   ├── js/a11y.js             # accessibility preferences panel
+│   ├── img/avatar.jpg         # hero avatar
 │   └── cv/                    # downloadable CV PDF
+├── tests/e2e/                 # Playwright end-to-end tests
+├── playwright.config.js       # Playwright config (serves site, Chromium)
 ├── .github/
-│   ├── workflows/ci.yml       # CI: lint, a11y, spellcheck, lighthouse, links
+│   ├── workflows/ci.yml       # CI: lint, a11y, spellcheck, lighthouse, links, e2e matrix
 │   └── dependabot.yml         # weekly npm + github-actions updates
 ├── .nojekyll                  # skip Jekyll build
-├── package.json               # dev tooling (linters, a11y, lighthouse)
+├── package.json               # dev tooling (linters, a11y, lighthouse, Playwright)
+├── package-lock.json          # pinned dependency tree (used by `npm ci`)
 └── README.md
-```
-
-## Local preview
-
-No build needed — any static server works:
-
-```bash
-python -m http.server 8080
-# open http://localhost:8080
 ```
 
 ## Tooling
 
 Every PR runs the following on GitHub Actions:
 
-| Check | Tool |
-| --- | --- |
-| HTML lint (source) | [HTMLHint](https://htmlhint.com/) |
-| HTML validation | [html-validate](https://html-validate.org/) |
-| Spell check (EN + PT-BR) | [cspell](https://cspell.org/) with `@cspell/dict-pt-br` |
-| Broken links | [lychee](https://github.com/lycheeverse/lychee-action) |
-| Accessibility (WCAG 2 AA) | [pa11y-ci](https://github.com/pa11y/pa11y-ci) |
-| Performance / SEO / a11y scores | [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci) |
-| Dependency updates | Dependabot (npm + github-actions) |
+| Check | Tool | OS |
+| --- | --- | --- |
+| HTML lint (source) | [HTMLHint](https://htmlhint.com/) | Linux |
+| HTML validation | [html-validate](https://html-validate.org/) | Linux |
+| Spell check (EN + PT-BR) | [cspell](https://cspell.org/) with `@cspell/dict-pt-br` | Linux |
+| Broken links | [lychee](https://github.com/lycheeverse/lychee-action) | Linux |
+| Accessibility (WCAG 2 AA) | [pa11y-ci](https://github.com/pa11y/pa11y-ci) | Linux |
+| Performance / SEO / a11y scores | [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci) | Linux |
+| End-to-end (homepage, nav, links, assets, console) | [Playwright](https://playwright.dev/) | Linux · macOS · Windows |
+| Dependency updates | Dependabot (npm + github-actions) | — |
 
-Run any linter locally:
+The Playwright job runs on a **Linux / macOS / Windows matrix** so the dev/test
+tooling is verified to work identically on all three. Node behaves the same on
+every OS, and `.gitattributes` normalizes line endings to LF so checkouts are
+byte-identical across platforms.
+
+## Local development & testing
+
+The toolchain is pure Node and runs the same on every OS. Install dependencies
+once with `npm ci` (uses the committed lockfile), then install the Chromium
+browser Playwright drives.
+
+### Linux / macOS
 
 ```bash
-npm install
-npm run lint:html        # HTMLHint
-npm run validate:html    # html-validate
-npm run spell            # cspell
-npm run serve            # http-server on :4000 (needed for a11y)
-npm run a11y             # pa11y-ci against :4000
-npm run lhci             # Lighthouse CI against repo root
+npm ci
+npx playwright install chromium      # one-time browser download
+npm test                             # html-validate + Playwright e2e
+
+# individual checks
+npm run lint:html                    # HTMLHint
+npm run validate:html                # html-validate
+npm run spell                        # cspell (EN + PT-BR)
+npm run serve                        # http-server on :4000
+npm run a11y                         # pa11y-ci against :4000
+npm run lhci                         # Lighthouse CI
+npm run test:e2e                     # Playwright only
+```
+
+### Windows (PowerShell)
+
+```powershell
+npm ci
+npx playwright install chromium      # one-time browser download
+npm test                             # html-validate + Playwright e2e
+
+# individual checks
+npm run lint:html
+npm run validate:html
+npm run spell
+npm run serve
+npm run test:e2e
+```
+
+> **Cross-platform note:** the npm scripts and Playwright's `webServer` use only
+> Node binaries (`http-server`, `html-validate`, `playwright`) and avoid
+> shell-specific syntax, so the exact same commands work in bash, zsh, and
+> PowerShell. No `&&`-chained shell scripts, no hardcoded path separators.
+
+### Quick preview (no Node)
+
+```bash
+python -m http.server 8080
+# open http://localhost:8080
 ```
 
 ## License

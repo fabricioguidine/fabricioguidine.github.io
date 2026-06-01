@@ -7,6 +7,13 @@ yarn-error.log*
 # Lighthouse CI
 .lighthouseci/
 
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+.cache/
+/playwright/.cache/
+
 # OS / editors
 .DS_Store
 Thumbs.db
