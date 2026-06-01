@@ -10,6 +10,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
 
   html-lint:
@@ -22,7 +26,7 @@ jobs:
           node-version: "20"
           cache: "npm"
       - name: Install Node deps
-        run: npm install --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
       - name: HTMLHint
         run: npx htmlhint "**/*.html" --ignore "node_modules/**,vendor/**"
       - name: html-validate
@@ -38,7 +42,7 @@ jobs:
           node-version: "20"
           cache: "npm"
       - name: Install Node deps
-        run: npm install --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
       - name: Run cspell
         run: npm run spell
 
@@ -63,7 +67,7 @@ jobs:
           node-version: "20"
           cache: "npm"
       - name: Install Node deps
-        run: npm install --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
       - name: Serve site
         run: npx --yes http-server . -p 4000 -s &
       - name: Wait for server
@@ -81,8 +85,39 @@ jobs:
           node-version: "20"
           cache: "npm"
       - name: Install Node deps
-        run: npm install --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
       - name: Run Lighthouse CI
         run: npx lhci autorun --config=./lighthouserc.json
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+  e2e:
+    name: E2E (Playwright) - ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install Node deps
+        run: npm ci --no-audit --no-fund
+      - name: Install Playwright Chromium (Linux, with OS deps)
+        if: runner.os == 'Linux'
+        run: npx playwright install --with-deps chromium
+      - name: Install Playwright Chromium (macOS / Windows)
+        if: runner.os != 'Linux'
+        run: npx playwright install chromium
+      - name: Run Playwright e2e tests
+        run: npm run test:e2e
+      - name: Upload Playwright report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.os }}
+          path: playwright-report/
+          retention-days: 7

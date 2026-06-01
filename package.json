@@ -2,18 +2,21 @@
   "name": "fabricioguidine-github-io-tooling",
   "version": "1.0.0",
   "private": true,
-  "description": "Dev-time tooling (linters, a11y, spellcheck, lighthouse) for the static fabricioguidine.github.io site",
+  "description": "Dev-time tooling (linters, a11y, spellcheck, lighthouse, Playwright e2e) for the static fabricioguidine.github.io site",
   "scripts": {
     "lint:html": "htmlhint \"**/*.html\" --ignore \"node_modules/**,vendor/**\"",
     "validate:html": "html-validate \"index.html\"",
     "spell": "cspell \"**/*.{md,html,yml}\" --no-progress",
     "a11y": "pa11y-ci --config .pa11yci.json",
     "lhci": "lhci autorun --config=./lighthouserc.json",
-    "serve": "http-server . -p 4000 -s"
+    "serve": "http-server . -p 4000 -s",
+    "test:e2e": "playwright test",
+    "test": "html-validate \"index.html\" && playwright test"
   },
   "devDependencies": {
     "@cspell/dict-pt-br": "^2.4.0",
     "@lhci/cli": "^0.13.0",
+    "@playwright/test": "^1.47.0",
     "cspell": "^8.14.0",
     "html-validate": "^8.22.0",
     "htmlhint": "^1.1.4",
