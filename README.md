@@ -2,11 +2,7 @@
 
 <img src=".github/assets/banner.svg" alt="fabricioguidine.github.io" width="100%">
 
-[![CI](https://github.com/fabricioguidine/fabricioguidine.github.io/actions/workflows/ci.yml/badge.svg)](https://github.com/fabricioguidine/fabricioguidine.github.io/actions/workflows/ci.yml)
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-live-222222.svg?logo=githubpages)](https://fabricioguidine.github.io)
-[![HTML5](https://img.shields.io/badge/HTML5-E34F26.svg?logo=html5&logoColor=white)](#)
-[![CSS3](https://img.shields.io/badge/CSS3-1572B6.svg?logo=css3&logoColor=white)](#)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![CI](https://github.com/fabricioguidine/fabricioguidine.github.io/actions/workflows/ci.yml/badge.svg)](https://github.com/fabricioguidine/fabricioguidine.github.io/actions/workflows/ci.yml) [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-live-222222.svg?logo=githubpages)](https://fabricioguidine.github.io) [![HTML5](https://img.shields.io/badge/HTML5-E34F26.svg?logo=html5&logoColor=white)](#) [![CSS3](https://img.shields.io/badge/CSS3-1572B6.svg?logo=css3&logoColor=white)](#) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 </div>
 
@@ -79,4 +75,4 @@ The site is published with GitHub Pages directly from this repository's `main` b
 
 ## License
 
-[MIT](LICENSE) © Fabrício de Sousa Guidine
+[MIT](LICENSE)
