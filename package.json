@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@cspell/dict-pt-br": "^2.4.0",
-    "@lhci/cli": "^0.13.0",
+    "@lhci/cli": "^0.15.1",
     "cspell": "^8.14.0",
     "html-validate": "^8.22.0",
     "htmlhint": "^1.1.4",
