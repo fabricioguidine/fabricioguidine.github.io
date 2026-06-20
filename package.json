@@ -14,7 +14,7 @@
   "devDependencies": {
     "@cspell/dict-pt-br": "^2.4.0",
     "@lhci/cli": "^0.13.0",
-    "cspell": "^8.14.0",
+    "cspell": "^10.0.0",
     "html-validate": "^8.22.0",
     "htmlhint": "^1.1.4",
     "http-server": "^14.1.1",
